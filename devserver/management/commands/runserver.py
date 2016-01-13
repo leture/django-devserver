@@ -107,16 +107,6 @@ class Command(BaseCommand):
         else:
             handler = DevServerHandler()
 
-        # AdminMediaHandler is removed in Django 1.5
-        # Add it only when it avialable.
-        try:
-            from django.core.servers.basehttp import AdminMediaHandler
-        except ImportError:
-            pass
-        else:
-            handler = AdminMediaHandler(
-                handler, options['admin_media_path'])
-
         if 'django.contrib.staticfiles' in settings.INSTALLED_APPS and options['use_static_files']:
             from django.contrib.staticfiles.handlers import StaticFilesHandler
             handler = StaticFilesHandler(handler)
